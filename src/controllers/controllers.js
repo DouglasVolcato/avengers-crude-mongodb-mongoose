@@ -7,11 +7,11 @@ class Controllers {
   }
 
   async getByIdController(req, res) {
-    res.send(await services.getByIdService(req.params.id));
+    res.send(await services.getByIdService(Number(req.params.id)));
   }
 
   async deleteController(req, res) {
-    res.send(await services.deleteService(req.params.id));
+    res.send(await services.deleteService(Number(req.params.id)));
   }
 
   async postController(req, res) {
@@ -26,7 +26,6 @@ class Controllers {
     );
   }
   async putController(req, res) {
-    console.log(req.body.notes);
     res.send(
       await services.putService(
         {
@@ -36,7 +35,7 @@ class Controllers {
           image: req.body.image,
           notes: req.body.notes,
         },
-        req.params.idSearch
+        Number(req.params.idSearch)
       )
     );
   }

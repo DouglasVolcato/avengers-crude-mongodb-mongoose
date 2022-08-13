@@ -7,11 +7,11 @@ class Services {
   }
 
   getByIdService = async (id) => {
-    return await AvengerModel.findById(id);
+    return await AvengerModel.find({id: id});
   };
 
   deleteService = async (id) => {
-    return await AvengerModel.findByIdAndDelete(id);
+    return await AvengerModel.findOneAndDelete({id: id});
   };
 
   postService = async (obj) => {
@@ -23,12 +23,12 @@ class Services {
         return newAvenger.verify();
       }
     } catch (e) {
-      return await AvengerModel.create(newAvenger, avengersArr);
+      return await AvengerModel.create(newAvenger, ...avengersArr);
     }
   };
 
   putService = async (obj, id) => {
-    const avengerToUpdate = await AvengerModel.findById(id);
+    const avengerToUpdate = await AvengerModel.find({id: id});
 
     const updatedAvenger = {
       character:
@@ -41,7 +41,7 @@ class Services {
       notes: obj.notes === undefined ? avengerToUpdate.notes : obj.notes,
     };
 
-    return await AvengerModel.findByIdAndUpdate(id, updatedAvenger);
+    return await AvengerModel.findOneAndUpdate({id: id}, updatedAvenger);
   };
 }
 
