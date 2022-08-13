@@ -2,6 +2,7 @@ function connectToDatabase() {
   const mongoose = require("mongoose");
 
   let uri = process.env.ATLAS_URI;
+  //.env archive hidden in .gitignore
 
   mongoose
     .connect(
