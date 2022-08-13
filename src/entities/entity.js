@@ -38,16 +38,12 @@ class Avenger {
 
 function generateId(arr, x = 1) {
   let num = x;
-  try {
-    for (let n of arr) {
-      if (n.id == x) {
-        return generateId(arr, (num += 1));
-      }
+  for (let n of arr) {
+    if (n.id == x) {
+      return generateId(arr, (num += 1));
     }
-    return num;
-  } catch (e) {
-    return 1;
   }
+  return num;
 }
 
 module.exports = Avenger;
