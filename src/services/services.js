@@ -17,14 +17,9 @@ class Services {
   postService = async (obj) => {
     const avengersArr = await AvengerModel.find();
     const newAvenger = await new AvengerClass(obj, avengersArr);
-
-    try {
-      if (newAvenger.verify().includes("empty")) {
-        return await newAvenger.verify();
-      }
-    } catch (e) {
-      return await AvengerModel.create(newAvenger, ...avengersArr);
-    }
+    newAvenger.verify();
+    const avengerToSave = new AvengerModel({ ...newAvenger });
+    return avengerToSave.save();
   };
 
   putService = async (obj, id) => {
@@ -41,7 +36,9 @@ class Services {
       notes: obj.notes === undefined ? avengerToUpdate.notes : obj.notes,
     };
 
-    return await AvengerModel.findOneAndUpdate({ id: id }, updatedAvenger);
+    return await AvengerModel.findOneAndUpdate({ id: id }, updatedAvenger, {
+      new: true,
+    });
   };
 }
 

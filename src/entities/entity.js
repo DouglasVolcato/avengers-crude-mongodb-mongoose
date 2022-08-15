@@ -19,7 +19,7 @@ class Avenger {
   }
   verify() {
     if (!this.character) {
-      throw new Error("Character cannot be empty.");
+      throw new Error("character cannot be empty.");
     }
     if (!this.realName) {
       throw new Error("realName cannot be empty.");

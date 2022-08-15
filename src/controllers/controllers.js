@@ -3,41 +3,48 @@ const services = new Services();
 
 class Controllers {
   async getAllController(req, res) {
-    res.send(await services.getAllService());
+    const answer = await services.getAllService();
+    if (answer.length == 0) throw new Error("Array is empty");
+    res.send(answer);
   }
 
   async getByIdController(req, res) {
-    res.send(await services.getByIdService(Number(req.params.id)));
+    const answer = await services.getByIdService(Number(req.params.id));
+    if (answer.length == 0) throw new Error("Ip not found");
+    res.send(answer);
   }
 
   async deleteController(req, res) {
-    res.send(await services.deleteService(Number(req.params.id)));
+    const answer = await services.deleteService(Number(req.params.id));
+    if (!answer) throw new Error("Ip not found");
+    res.send("Deleted item: " + answer);
   }
 
   async postController(req, res) {
     res.send(
-      await services.postService({
-        character: req.body.character,
-        realName: req.body.realName,
-        joinedIn: req.body.joinedIn,
-        image: req.body.image,
-        notes: req.body.notes,
-      })
-    );
-  }
-  async putController(req, res) {
-    res.send(
-      await services.putService(
-        {
+      "Added item: " +
+        (await services.postService({
           character: req.body.character,
           realName: req.body.realName,
           joinedIn: req.body.joinedIn,
           image: req.body.image,
           notes: req.body.notes,
-        },
-        Number(req.params.idSearch)
-      )
+        }))
     );
+  }
+  async putController(req, res) {
+    const answer = await services.putService(
+      {
+        character: req.body.character,
+        realName: req.body.realName,
+        joinedIn: req.body.joinedIn,
+        image: req.body.image,
+        notes: req.body.notes,
+      },
+      Number(req.params.idSearch)
+    );
+    if (!answer) throw new Error("Ip not found");
+    res.send("Updated item: " + answer);
   }
 }
 
