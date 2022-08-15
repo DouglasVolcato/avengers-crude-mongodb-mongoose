@@ -1,4 +1,4 @@
-const Controllers = require("../controllers/controllers");
+const Controllers = require("../controllers/index.controllers");
 const controllers = new Controllers();
 
 class Routes {
