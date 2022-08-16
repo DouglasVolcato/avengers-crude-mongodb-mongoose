@@ -16,7 +16,7 @@ app.delete("/delete/:id", routes.deleteRoute);
 app.post("/post", routes.postRoute);
 app.put("/put/:idSearch", routes.putRoute);
 
-const listener = app.listen(process.env.PORT || 100, () => {
+const listener = app.listen(process.env.PORT || 3000, () => {
   console.log(`App running at port ${listener.address().port}`);
   console.log(`Access at http://localhost:${listener.address().port}`);
 });
